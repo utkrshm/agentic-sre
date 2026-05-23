@@ -18,15 +18,24 @@ class RCAAgent:
     def _initialize_llm(self) -> BaseChatModel:
         """
         Dynamically initializes the appropriate LLM provider depending on environment flags.
+        Handles dynamic detection of Groq keys mapped to OPENAI_API_KEY.
         """
-        if os.environ.get("OPENAI_API_KEY"):
+        openai_key = os.environ.get("OPENAI_API_KEY", "")
+        groq_key = os.environ.get("GROQ_API_KEY", "")
+        
+        # If the OpenAI key is actually a Groq key, override and use Groq
+        if openai_key.startswith("gsk_") and not groq_key:
+            groq_key = openai_key
+            os.environ["GROQ_API_KEY"] = openai_key
+            
+        if groq_key:
+            from langchain_groq import ChatGroq
+            model = os.environ.get("GROQ_MODEL_NAME", "llama-3.3-70b-versatile")
+            return ChatGroq(model=model, temperature=0.1)
+        elif openai_key:
             from langchain_openai import ChatOpenAI
             model = os.environ.get("OPENAI_MODEL_NAME", "gpt-4o-mini")
             return ChatOpenAI(model=model, temperature=0.1)
-        elif os.environ.get("GROQ_API_KEY"):
-            from langchain_groq import ChatGroq
-            model = os.environ.get("GROQ_MODEL_NAME", "llama-3.1-70b-versatile")
-            return ChatGroq(model=model, temperature=0.1)
         else:
             # Fallback when testing locally or running mock environments
             from langchain_openai import ChatOpenAI
