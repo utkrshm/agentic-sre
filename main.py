@@ -18,6 +18,18 @@ def parse_args():
     return parser.parse_args()
 
 def main():
+    # Load .env file if it exists
+    if os.path.exists(".env"):
+        with open(".env") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#"):
+                    try:
+                        key, val = line.split("=", 1)
+                        os.environ[key.strip()] = val.strip().strip("'").strip('"')
+                    except ValueError:
+                        continue
+
     args = parse_args()
     scenario_file = os.path.join("tests", "mock_payloads", f"{args.scenario}.json")
     
@@ -40,7 +52,15 @@ def main():
     print(f"Description: {scenario_data.get('description', '')}\n")
     
     # Check if API Keys are configured for LLM reasoning
-    api_key_set = os.environ.get("OPENAI_API_KEY") or os.environ.get("GROQ_API_KEY")
+    openai_key = os.environ.get("OPENAI_API_KEY", "")
+    groq_key = os.environ.get("GROQ_API_KEY", "")
+    
+    # If the OpenAI key is actually a Groq key, override and use Groq
+    if openai_key.startswith("gsk_") and not groq_key:
+        groq_key = openai_key
+        os.environ["GROQ_API_KEY"] = openai_key
+        
+    api_key_set = openai_key or groq_key
     if not api_key_set:
         print("⚠️  Warning: OPENAI_API_KEY / GROQ_API_KEY is not set in environment.")
         print("   The pipeline will run ingestion & correlation deterministically,")
@@ -142,6 +162,14 @@ def main():
         print("   Remediation report, set your OpenAI or Groq API key and rerun:")
         print("   export OPENAI_API_KEY='your_key'")
         print("   python main.py")
+        print("=" * 70)
+
+    # Print execution warnings or errors if they occurred
+    errors = state.get("execution_errors", [])
+    if errors:
+        print("\n⚠️  Pipeline Warnings/Errors occurred during analysis:")
+        for err in errors:
+            print(f" - {err}")
         print("=" * 70)
 
 if __name__ == "__main__":
