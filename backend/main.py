@@ -3,8 +3,8 @@ import sys
 import json
 import argparse
 from datetime import datetime
-from workflows.state_machine import sre_analyzer_flow, IncidentState
-from domain.schemas import Severity
+from backend.workflows.state_machine import sre_analyzer_flow, IncidentState
+from backend.domain.schemas import Severity
 
 def parse_args():
     parser = argparse.ArgumentParser(description="AI SRE Root Cause Analyzer CLI Demo Runner")
@@ -84,7 +84,7 @@ def main():
         # If no API key is present, we only execute the deterministic ingest/correlation nodes
         if not api_key_set:
             # Manually invoke state nodes to avoid LLM errors
-            from workflows.state_machine import ingest_node, correlate_node
+            from backend.workflows.state_machine import ingest_node, correlate_node
             state = ingest_node(state)
             state = correlate_node(state)
         else:

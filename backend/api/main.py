@@ -4,8 +4,8 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from domain.schemas import RCAReport, TelemetryEvent, IncidentTimeline
-from workflows.state_machine import sre_analyzer_flow, IncidentState
+from backend.domain.schemas import RCAReport, TelemetryEvent, IncidentTimeline
+from backend.workflows.state_machine import sre_analyzer_flow, IncidentState
 
 # Initialize FastAPI application with clean OpenAPI metadata
 app = FastAPI(

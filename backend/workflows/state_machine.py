@@ -1,16 +1,16 @@
 from typing import List, Dict, Any, Optional, TypedDict
 from langgraph.graph import StateGraph, START, END
 
-from domain.schemas import TelemetryEvent, IncidentTimeline, RCAReport
-from domain.exceptions import SREDomainError
-from adapters.loki import LokiAdapter
-from adapters.prometheus import PrometheusAdapter
-from adapters.alertmanager import AlertmanagerAdapter
-from adapters.github import GitHubActionsAdapter
-from pipeline.compression import LogCompressor
-from pipeline.correlation import TimelineCorrelator
-from agents.rca_agent import RCAAgent
-from agents.remediation_agent import RemediationAgent
+from backend.domain.schemas import TelemetryEvent, IncidentTimeline, RCAReport
+from backend.domain.exceptions import SREDomainError
+from backend.adapters.loki import LokiAdapter
+from backend.adapters.prometheus import PrometheusAdapter
+from backend.adapters.alertmanager import AlertmanagerAdapter
+from backend.adapters.github import GitHubActionsAdapter
+from backend.pipeline.compression import LogCompressor
+from backend.pipeline.correlation import TimelineCorrelator
+from backend.agents.rca_agent import RCAAgent
+from backend.agents.remediation_agent import RemediationAgent
 
 class IncidentState(TypedDict):
     """

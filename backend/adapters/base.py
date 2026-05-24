@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any, List
-from domain.schemas import TelemetryEvent
+from backend.domain.schemas import TelemetryEvent
 
 class BaseProviderAdapter(ABC):
     """

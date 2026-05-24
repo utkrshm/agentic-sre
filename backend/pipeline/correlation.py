@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from typing import List, Optional
-from domain.schemas import TelemetryEvent, IncidentTimeline, TelemetryType, Severity
-from domain.exceptions import TimelineConstructionError
+from backend.domain.schemas import TelemetryEvent, IncidentTimeline, TelemetryType, Severity
+from backend.domain.exceptions import TimelineConstructionError
 
 class TimelineCorrelator:
     """

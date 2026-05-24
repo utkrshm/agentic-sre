@@ -1,8 +1,8 @@
 from datetime import datetime, timezone
 from typing import Any, Dict, List
-from domain.schemas import TelemetryEvent, TelemetrySource, TelemetryType, Severity
-from domain.exceptions import AdapterMappingError
-from adapters.base import BaseProviderAdapter
+from backend.domain.schemas import TelemetryEvent, TelemetrySource, TelemetryType, Severity
+from backend.domain.exceptions import AdapterMappingError
+from backend.adapters.base import BaseProviderAdapter
 
 class PrometheusAdapter(BaseProviderAdapter):
     """

@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 from typing import List, Dict, Tuple
-from domain.schemas import TelemetryEvent, TelemetryType, Severity
+from backend.domain.schemas import TelemetryEvent, TelemetryType, Severity
 
 # Severity rank mapping for correct numerical level comparison (avoiding string alphabetical issues)
 SEVERITY_RANKING = {

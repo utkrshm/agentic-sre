@@ -2,9 +2,9 @@ import os
 from typing import Optional
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.language_models.chat_models import BaseChatModel
-from domain.schemas import IncidentTimeline, RCAReport
-from domain.exceptions import SREDomainError
-from agents.prompts import RCA_SYSTEM_PROMPT, RCA_USER_TEMPLATE
+from backend.domain.schemas import IncidentTimeline, RCAReport
+from backend.domain.exceptions import SREDomainError
+from backend.agents.prompts import RCA_SYSTEM_PROMPT, RCA_USER_TEMPLATE
 
 class RCAAgent:
     """

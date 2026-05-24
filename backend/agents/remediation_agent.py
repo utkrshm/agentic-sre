@@ -3,9 +3,9 @@ from typing import List, Optional
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.language_models.chat_models import BaseChatModel
 from langchain_core.output_parsers import StrOutputParser
-from domain.schemas import RCAReport
-from domain.exceptions import SREDomainError
-from agents.prompts import REMEDIATION_SYSTEM_PROMPT, REMEDIATION_USER_TEMPLATE
+from backend.domain.schemas import RCAReport
+from backend.domain.exceptions import SREDomainError
+from backend.agents.prompts import REMEDIATION_SYSTEM_PROMPT, REMEDIATION_USER_TEMPLATE
 
 class RemediationAgent:
     """

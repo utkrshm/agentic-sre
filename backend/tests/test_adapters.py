@@ -1,11 +1,11 @@
 import os
 import json
 from datetime import datetime
-from domain.schemas import TelemetryType, Severity, TelemetrySource
-from adapters.loki import LokiAdapter
-from adapters.prometheus import PrometheusAdapter
-from adapters.alertmanager import AlertmanagerAdapter
-from adapters.github import GitHubActionsAdapter
+from backend.domain.schemas import TelemetryType, Severity, TelemetrySource
+from backend.adapters.loki import LokiAdapter
+from backend.adapters.prometheus import PrometheusAdapter
+from backend.adapters.alertmanager import AlertmanagerAdapter
+from backend.adapters.github import GitHubActionsAdapter
 
 def test_loki_adapter():
     adapter = LokiAdapter()
